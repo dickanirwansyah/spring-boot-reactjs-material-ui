@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.idgenerali.mybackend.mapper.CategoryInsuranceMapper">
+    <select id="listCategoryInsurance" resultType="com.idgenerali.mybackend.model.CategoryInsurance">
+        CALL getSPListCategoryInsurance()
+    </select>
+    <insert id="insertCategory" parameterType="com.idgenerali.mybackend.model.CategoryInsurance">
+        INSERT INTO categoryInsurance (name, flag_active, created_at, updated_at)
+        VALUES (#{categoryInsurance.name}, #{categoryInsurance.flagActive}, CURDATE(), CURDATE())
+    </insert>
+    <update id="updateCategory" parameterType="com.idgenerali.mybackend.model.CategoryInsurance">
+        UPDATE categoryInsurance SET
+            name=#{categoryInsurance.name},
+            flag_active=#{categoryInsurance.flagActive},
+            created_at = #{categoryInsurance.createdAt},
+            updated_at = CURDATE()
+        WHERE id = #{categoryInsurance.id}
+    </update>
+    <select id="findCategoryById" resultType="com.idgenerali.mybackend.model.CategoryInsurance">
+        SELECT id, name, flag_active as flagActive, created_at as createdAt, updated_at as updatedAt
+        FROM categoryInsurance WHERE id=#{id}
+    </select>
+    <select id="findCategoryByName" resultType="com.idgenerali.mybackend.model.CategoryInsurance">
+        SELECT id, name, flag_active as flagActive, created_at as createdAt, updated_at as updatedAt
+        FROM catagoryInsurance WHERE name=#{name}
+    </select>
+</mapper>

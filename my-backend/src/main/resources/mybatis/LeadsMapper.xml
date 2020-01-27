@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.idgenerali.mybackend.mapper.LeadsMapper">
+    <select id="listLeads" resultType="com.idgenerali.mybackend.model.Leads">
+        select id, name, email, active from leads
+    </select>
+
+    <!--store procedure -->
+    <select id="findLeadsByEmail" statementType="CALLABLE"
+            resultType="com.idgenerali.mybackend.model.Leads">
+
+        CALL getLeadsByEmail(#{email})
+
+    </select>
+
+
+    <select id="listLeadsByActive" resultType="com.idgenerali.mybackend.model.Leads">
+        select id, name, email, active from leads where active=true
+    </select>
+    <select id="listLeadsByNotActive" resultType="com.idgenerali.mybackend.model.Leads">
+        select id, name, email, active from leads where active=false
+    </select>
+    <insert id="insertLeads" parameterType="com.idgenerali.mybackend.model.Leads">
+        insert into leads(name, email, active) values (#{leads.name}, #{leads.email}, #{leads.active})
+    </insert>
+    <update id="updateLeads" parameterType="com.idgenerali.mybackend.model.Leads">
+        update leads set name=#{leads.name}, email=#{leads.email}, active=#{leads.active}
+        where id=#{leads.id}
+    </update>
+    <delete id="deleteLeads" parameterType="integer">
+        delete from leads where id = #{id}
+    </delete>
+</mapper>

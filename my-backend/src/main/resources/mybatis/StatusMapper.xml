@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.idgenerali.mybackend.mapper.StatusMapper">
+    <select id="listStatus" resultType="com.idgenerali.mybackend.model.Status" statementType="CALLABLE">
+        CALL getSPListStatus()
+    </select>
+    <select id="findStatusById" resultType="com.idgenerali.mybackend.model.Status" statementType="CALLABLE">
+        CALL getSPStatusById(#{id})
+    </select>
+    <select id="findStatusByName" resultType="com.idgenerali.mybackend.model.Status" statementType="CALLABLE">
+        CALL getSPStatusByName(#{name})
+    </select>
+</mapper>
